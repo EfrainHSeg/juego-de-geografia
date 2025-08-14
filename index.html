@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explora el Mundo: Aprende sobre países, capitales y banderas con juegos interactivos y recursos educativos.">
+    <meta name="keywords" content="geografía, países, capitales, banderas, educación, quiz">
+    <meta name="author" content="Explora el Mundo">
+    <title>Explora el Mundo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32?text=🌍">
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-300">
+
+    <nav class="bg-white dark:bg-gray-800 shadow-md py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold">🌍 Explora</div>
+            <div class="flex items-center gap-4">
+                <a href="paises.html" class="text-gray-700 dark:text-gray-200 hover:text-blue-600" data-translate="nav.paises">Países</a>
+                <a href="juegos.html" class="text-gray-700 dark:text-gray-200 hover:text-blue-600" data-translate="nav.quiz">Quiz</a>
+                <button id="theme-toggle" aria-label="Cambiar tema" class="text-gray-700 dark:text-gray-200">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <select id="language-switcher"
+                    class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-0 outline-none">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-bg text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate__fadeIn" data-translate="home.title">Explora el Mundo</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate__fadeIn" data-delay="0.2" data-translate="home.subtitle">Descubre países, capitales y banderas con recursos educativos y juegos interactivos diseñados para todas las edades.</p>
+            <div class="flex justify-center gap-4">
+                <a href="paises.html" data-translate="home.explore_btn"
+                    class="bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-medium btn-primary animate__fadeIn"
+                    data-delay="0.4">Explorar Países</a>
+                <a href="juegos.html" data-translate="home.quiz_btn"
+                    class="bg-green-600 text-white px-8 py-3 rounded-lg text-lg font-medium btn-primary animate__fadeIn"
+                    data-delay="0.6">Jugar Quiz de Banderas</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg card text-center">
+                <div class="text-4xl text-blue-600 dark:text-blue-400 mb-4">
+                    <i class="fas fa-earth-americas"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-4" data-translate="cards.learn_title">Aprende sobre Países</h2>
+                <p class="mb-6 text-gray-600 dark:text-gray-400" data-translate="cards.learn_text">Explora información detallada sobre cada país, incluyendo sus capitales y datos geográficos.</p>
+                <a href="paises.html" data-translate="cards.discover_more"
+                    class="inline-block bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-medium btn-primary">
+                    <span>Descubre más</span> <span class="ml-2">&rarr;</span>
+                </a>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg card text-center">
+                <div class="text-4xl text-green-600 dark:text-green-400 mb-4">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-4" data-translate="cards.quiz_title">Quiz de Banderas</h2>
+                <p class="mb-6 text-gray-600 dark:text-gray-400" data-translate="cards.quiz_text">Pon a prueba tus conocimientos con nuestro divertido juego interactivo de banderas.</p>
+                <a href="juegos.html" data-translate="cards.play_now"
+                    class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-medium btn-primary">
+                    <span>Jugar ahora</span> <span class="ml-2">&rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="text-center">
+            <h2 class="text-3xl font-semibold mb-6" data-translate="home.why_title">¿Por qué Explora el Mundo?</h2>
+            <p class="text-lg mb-8 max-w-3xl mx-auto" data-translate="home.why_text">Nuestra plataforma combina educación y entretenimiento para ayudarte a aprender sobre el mundo de una manera divertida y accesible. Perfecta para estudiantes, profesores y curiosos de todas las edades.</p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 dark:bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4" data-translate="footer.rights">&copy; 2025 Explora el Mundo. Todos los derechos reservados.</p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/language.js"></script>
+</body>
+
+</html>

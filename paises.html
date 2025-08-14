@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lista de todos los países del mundo, sus capitales y banderas.">
+    <meta name="keywords" content="lista de países, capitales, banderas, geografía">
+    <meta name="author" content="Explora el Mundo">
+    <title data-translate="paises.title">Países del Mundo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32?text=🌍">
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-300">
+
+    <nav class="bg-white dark:bg-gray-800 shadow-md py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold">🌍 Explora</div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-gray-700 dark:text-gray-200 hover:text-blue-600">Inicio</a>
+                <a href="paises.html" class="text-gray-700 dark:text-gray-200 hover:text-blue-600" data-translate="nav.paises">Países</a>
+                <a href="juegos.html" class="text-gray-700 dark:text-gray-200 hover:text-blue-600" data-translate="nav.quiz">Quiz</a>
+                <button id="theme-toggle" aria-label="Cambiar tema" class="text-gray-700 dark:text-gray-200">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <select id="language-switcher" class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-0 outline-none">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-16">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-2" data-translate="paises.title">Países del Mundo</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400" data-translate="paises.subtitle">Busca y explora información detallada de cada país.</p>
+        </header>
+
+        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mb-12">
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-8">
+                <input type="text" id="searchInput" data-translate-placeholder="paises.search_placeholder"
+                    class="w-full md:w-1/2 p-3 text-lg border-2 border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors dark:bg-gray-700 dark:text-white">
+                <select id="regionFilter"
+                    class="w-full md:w-1/4 p-3 text-lg border-2 border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors dark:bg-gray-700 dark:text-white">
+                </select>
+            </div>
+        </section>
+
+        <section id="paises-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        </section>
+    </main>
+
+    <div id="countryModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+        <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 max-w-2xl w-full relative transform transition-all scale-95 duration-300 ease-out">
+            <button id="closeModalBtn"
+                class="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalContent" class="flex flex-col md:flex-row items-center gap-6">
+                <p class="text-center text-gray-500" data-translate="paises.details_loading">Cargando detalles del país...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 dark:bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4" data-translate="footer.rights">&copy; 2025 Explora el Mundo. Todos los derechos reservados.</p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/language.js"></script> <script src="js/paises.js"></script>
+
+</body>
+
+</html>
