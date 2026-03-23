@@ -1,22 +1,25 @@
 // --- Lógica para el Modo Oscuro ---
-const themeToggle = document.getElementById('theme-toggle');
+const themeToggles = document.querySelectorAll('#theme-toggle');
 const html = document.documentElement;
 
-function toggleTheme() {
-    html.classList.toggle('dark');
-    themeToggle.innerHTML = html.classList.contains('dark') 
-        ? '<i class="fas fa-sun"></i>' 
-        : '<i class="fas fa-moon"></i>';
-    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+function setThemeIcon(isDark) {
+    themeToggles.forEach(btn => {
+        btn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
 }
 
-themeToggle.addEventListener('click', toggleTheme);
+function toggleTheme() {
+    const isDark = html.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    setThemeIcon(isDark);
+}
+
+themeToggles.forEach(btn => btn.addEventListener('click', toggleTheme));
 
 // Cargar el tema guardado al inicio
-if (localStorage.getItem('theme') === 'dark') {
-    html.classList.add('dark');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-}
+const savedDark = localStorage.getItem('theme') === 'dark';
+if (savedDark) html.classList.add('dark');
+setThemeIcon(savedDark);
 
 // --- Animaciones GSAP para el efecto fade-in (solo se usa en index.html) ---
 document.addEventListener('DOMContentLoaded', () => {

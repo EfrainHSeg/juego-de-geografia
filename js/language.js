@@ -14,6 +14,21 @@ const translations = {
         "cards.play_now": "Jugar ahora",
         "home.why_title": "¿Por qué Explora el Mundo?",
         "home.why_text": "Nuestra plataforma combina educación y entretenimiento para ayudarte a aprender sobre el mundo de una manera divertida y accesible. Perfecta para estudiantes, profesores y curiosos de todas las edades.",
+        "home.tag": "Educación interactiva",
+        "home.stat_countries": "Países",
+        "home.stat_regions": "Regiones",
+        "home.stat_modes": "Modos de juego",
+        "home.how_title": "¿Cómo funciona?",
+        "home.step1_title": "Explora países",
+        "home.step1_text": "Navega por la lista de países del mundo, filtra por región y consulta sus datos.",
+        "home.step2_title": "Elige un modo",
+        "home.step2_text": "Juega al quiz de banderas o al de capitales según lo que quieras practicar.",
+        "home.step3_title": "Mejora tu score",
+        "home.step3_text": "Responde 10 preguntas y descubre cuánto sabes de geografía mundial.",
+        "home.feat1": "Gratis",
+        "home.feat2": "Sin registro",
+        "home.feat3": "ES / EN",
+        "home.feat4": "Modo oscuro",
         "footer.rights": "Todos los derechos reservados.",
 
         "paises.title": "Países del Mundo",
@@ -32,6 +47,8 @@ const translations = {
         "paises.details_loading": "Cargando detalles del país...",
         "paises.details_error": "No se pudo cargar la información de este país.",
         "paises.not_available": "No disponible",
+        "paises.click_details": "Click para más info",
+        "paises.results_label": " países",
 
         "quiz.title": "Quiz",
         "quiz.subtitle": "Pon a prueba tus conocimientos de geografía.",
@@ -48,7 +65,14 @@ const translations = {
         "quiz.restart_btn": "Jugar de nuevo",
         "quiz.loading": "Cargando juego...",
         "quiz.feedback_correct": "¡Correcto!",
-        "quiz.feedback_incorrect": "Incorrecto."
+        "quiz.feedback_incorrect": "Incorrecto.",
+        "quiz.feedback_timeout": "⏱ Tiempo agotado",
+        "quiz.question_of": "Pregunta",
+        "quiz.result_perfect": "¡Perfecto! Eres un genio de la geografía.",
+        "quiz.result_great": "¡Excelente! Casi perfecto.",
+        "quiz.result_good": "¡Bien! Sigues aprendiendo.",
+        "quiz.result_ok": "Regular, sigue practicando.",
+        "quiz.result_bad": "Necesitas practicar más. ¡Tú puedes!"
     },
     en: {
         "nav.paises": "Countries",
@@ -65,6 +89,21 @@ const translations = {
         "cards.play_now": "Play now",
         "home.why_title": "Why Explore the World?",
         "home.why_text": "Our platform combines education and entertainment to help you learn about the world in a fun and accessible way. Perfect for students, teachers, and curious minds of all ages.",
+        "home.tag": "Interactive education",
+        "home.stat_countries": "Countries",
+        "home.stat_regions": "Regions",
+        "home.stat_modes": "Game modes",
+        "home.how_title": "How does it work?",
+        "home.step1_title": "Explore countries",
+        "home.step1_text": "Browse the world's countries, filter by region and check their data.",
+        "home.step2_title": "Pick a mode",
+        "home.step2_text": "Play the flags quiz or the capitals quiz depending on what you want to practice.",
+        "home.step3_title": "Improve your score",
+        "home.step3_text": "Answer 10 questions and find out how much you know about world geography.",
+        "home.feat1": "Free",
+        "home.feat2": "No sign-up",
+        "home.feat3": "ES / EN",
+        "home.feat4": "Dark mode",
         "footer.rights": "All rights reserved.",
         
         "paises.title": "Countries of the World",
@@ -83,6 +122,8 @@ const translations = {
         "paises.details_loading": "Loading country details...",
         "paises.details_error": "Could not load this country's information.",
         "paises.not_available": "Not available",
+        "paises.click_details": "Click for more info",
+        "paises.results_label": " countries",
 
         "quiz.title": "Quiz",
         "quiz.subtitle": "Test your geography knowledge.",
@@ -99,7 +140,14 @@ const translations = {
         "quiz.restart_btn": "Play again",
         "quiz.loading": "Loading game...",
         "quiz.feedback_correct": "Correct!",
-        "quiz.feedback_incorrect": "Incorrect."
+        "quiz.feedback_incorrect": "Incorrect.",
+        "quiz.feedback_timeout": "⏱ Time's up!",
+        "quiz.question_of": "Question",
+        "quiz.result_perfect": "Perfect! You're a geography genius.",
+        "quiz.result_great": "Excellent! Almost perfect.",
+        "quiz.result_good": "Good! Keep learning.",
+        "quiz.result_ok": "Not bad, keep practicing.",
+        "quiz.result_bad": "You need more practice. You can do it!"
     }
 };
 

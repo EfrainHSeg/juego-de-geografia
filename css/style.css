@@ -1,6 +1,13 @@
+/* Footer siempre abajo */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* Estilos para el hero section y transiciones */
 .hero-bg {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://plus.unsplash.com/premium_photo-1681488098851-e3913f3b1908?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://plus.unsplash.com/premium_photo-1681488098851-e3913f3b1908?q=80&w=1740&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -10,6 +17,13 @@
     justify-content: center;
 }
 
+.dark .hero-bg {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://plus.unsplash.com/premium_photo-1681488098851-e3913f3b1908?q=80&w=1740&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 .btn-primary {
     transition: all 0.3s ease;
 }
@@ -17,11 +31,27 @@
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    background-color: #1e3a8a;
 }
 
-.dark .hero-bg {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1477840539360-4a1d23071046?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+/* Navbar link underline animation */
+.nav-link {
+    position: relative;
+    padding-bottom: 2px;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2563eb;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
 }
 
 .card {
@@ -64,4 +94,325 @@
     background-color: #EF4444 !important;
     /* Tailwind red-500 */
     color: white;
+}
+
+/* ===== QUIZ MODE CARDS ===== */
+.quiz-mode-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px;
+    border-radius: 16px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.dark .quiz-mode-card {
+    background: #1f2937;
+    border-color: #374151;
+    color: white;
+}
+
+.quiz-mode-card:hover {
+    border-color: #93c5fd;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37,99,235,0.12);
+}
+
+.quiz-mode-card-active {
+    border-color: #2563eb;
+    background: #eff6ff;
+    box-shadow: 0 0 0 1px #2563eb;
+}
+
+.dark .quiz-mode-card-active {
+    background: rgba(37,99,235,0.15);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* ===== PAÍSES: 3D FLIP CARDS ===== */
+.country-card-wrapper {
+    perspective: 1000px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.country-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.country-card-wrapper:hover .country-card-inner {
+    transform: rotateY(180deg);
+}
+
+.country-card-front,
+.country-card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* Front: zona bandera + zona info */
+.country-card-front {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.dark .country-card-front {
+    background: #1f2937;
+}
+
+.card-flag-area {
+    flex: 0 0 63%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+.dark .card-flag-area {
+    background: #111827;
+}
+
+.card-flag-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+    transition: transform 0.35s ease;
+}
+
+.country-card-wrapper:hover .card-flag-area img {
+    transform: scale(1.08);
+}
+
+.card-info-area {
+    flex: 1;
+    padding: 9px 12px;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.dark .card-info-area {
+    border-top-color: #374151;
+}
+
+.country-card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #1e40af 0%, #065f46 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: white;
+    text-align: center;
+}
+
+/* ===== REGION PILLS ===== */
+.region-pill {
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1.5px solid #e5e7eb;
+    color: #6b7280;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.dark .region-pill {
+    border-color: #4b5563;
+    color: #9ca3af;
+    background: #1f2937;
+}
+
+.region-pill:hover {
+    border-color: #3b82f6;
+    color: #2563eb;
+}
+
+.dark .region-pill:hover {
+    border-color: #3b82f6;
+    color: #60a5fa;
+}
+
+.region-pill.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+}
+
+.dark .region-pill.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+/* ===== MODAL: HERO + WAVING FLAG ===== */
+@keyframes flagWave {
+    0%   { transform: perspective(600px) rotateY(0deg) skewX(0deg); }
+    20%  { transform: perspective(600px) rotateY(14deg) skewX(-3deg); }
+    40%  { transform: perspective(600px) rotateY(4deg) skewX(-1deg); }
+    60%  { transform: perspective(600px) rotateY(-10deg) skewX(2deg); }
+    80%  { transform: perspective(600px) rotateY(-2deg) skewX(0deg); }
+    100% { transform: perspective(600px) rotateY(0deg) skewX(0deg); }
+}
+
+.modal-hero {
+    height: 230px;
+    border-radius: 16px 16px 0 0;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%);
+}
+
+.modal-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.modal-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 55%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 22px 24px;
+    gap: 16px;
+}
+
+.flag-wave-hero {
+    width: 88px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    animation: flagWave 3.5s ease-in-out infinite;
+    transform-origin: left center;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.25);
+}
+
+.modal-body {
+    padding: 20px 22px 22px;
+}
+
+.modal-stat-big {
+    background: #f3f4f6;
+    border-radius: 14px;
+    padding: 14px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.dark .modal-stat-big {
+    background: #374151;
+}
+
+.modal-stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.modal-stat-num {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.dark .modal-stat-num {
+    color: #f9fafb;
+}
+
+.modal-stat-lbl {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 700;
+    color: #9ca3af;
+}
+
+.modal-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f3f4f6;
+    border-radius: 12px;
+    padding: 10px 14px;
+}
+
+.dark .modal-stat {
+    background: #374151;
+}
+
+.stat-label {
+    font-size: 0.62rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+    font-weight: 700;
+}
+
+.stat-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.3;
+}
+
+.dark .stat-value {
+    color: #f9fafb;
+}
+
+.wiki-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Entrance animation */
+.card-enter {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+}
+
+.card-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
