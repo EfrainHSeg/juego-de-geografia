@@ -27,6 +27,8 @@
             <!-- Desktop -->
             <div class="hidden md:flex items-center gap-7">
                 <a href="paises.html" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-translate="nav.paises">Países</a>
+                <a href="comparar.html" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-translate="nav.comparar">Comparar</a>
+                <a href="mapa.html" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-translate="nav.mapa">Mapa</a>
                 <a href="juegos.html" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors" data-translate="nav.quiz">Quiz</a>
                 <div class="flex items-center gap-3 border-l border-gray-700 dark:border-indigo-800 pl-6">
                     <button id="theme-toggle" aria-label="Cambiar tema" class="w-8 h-8 rounded-full bg-gray-800 dark:bg-indigo-900 flex items-center justify-center text-gray-300 hover:text-white transition-colors">
@@ -55,6 +57,8 @@
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-gray-800 dark:border-indigo-900 px-6 py-3 bg-gray-900 dark:bg-indigo-950">
             <a href="paises.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.paises">Países</a>
+            <a href="comparar.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.comparar">Comparar</a>
+            <a href="mapa.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.mapa">Mapa</a>
             <a href="juegos.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.quiz">Quiz</a>
         </div>
     </nav>
@@ -94,7 +98,12 @@
         </div>
     </section>
 
-    <main class="container mx-auto px-4 py-16 flex-1">
+    <!-- País del día -->
+    <section class="container mx-auto px-4 py-10">
+        <div id="daily-country-card" class="daily-card-skeleton animate-pulse rounded-2xl" style="min-height:260px"></div>
+    </section>
+
+    <main class="container mx-auto px-4 pb-16 flex-1">
 
         <!-- Cards -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
@@ -180,6 +189,8 @@
     <script src="js/theme-toggle.js"></script>
     <script src="js/language.js"></script>
     <script src="js/ui/navbar.js"></script>
+    <script src="js/api/countries.js"></script>
+    <script src="js/pages/index.js"></script>
 </body>
 
 </html>

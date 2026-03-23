@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mapa interactivo de todos los países del mundo con información detallada.">
+    <meta name="keywords" content="mapa interactivo, países del mundo, geografía, capitales">
+    <meta name="author" content="Explora el Mundo">
+    <title data-translate="nav.mapa">Mapa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-300">
+
+    <nav class="bg-gray-900 dark:bg-indigo-950 border-b border-gray-800 dark:border-indigo-900 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center h-16">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <i class="fas fa-globe text-blue-400 text-xl group-hover:rotate-12 transition-transform duration-300"></i>
+                <span class="font-bold text-xl text-white tracking-tight">Explora</span>
+            </a>
+            <!-- Desktop -->
+            <div class="hidden md:flex items-center gap-7">
+                <a href="index.html" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors">Inicio</a>
+                <a href="paises.html" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-translate="nav.paises">Países</a>
+                <a href="comparar.html" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-translate="nav.comparar">Comparar</a>
+                <a href="mapa.html" class="nav-link active text-white font-semibold text-sm" data-translate="nav.mapa">Mapa</a>
+                <a href="juegos.html" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors" data-translate="nav.quiz">Quiz</a>
+                <div class="flex items-center gap-3 border-l border-gray-700 dark:border-indigo-800 pl-6">
+                    <button id="theme-toggle" aria-label="Cambiar tema" class="w-8 h-8 rounded-full bg-gray-800 dark:bg-indigo-900 flex items-center justify-center text-gray-300 hover:text-white transition-colors">
+                        <i class="fas fa-moon text-sm"></i>
+                    </button>
+                    <select id="language-switcher" class="bg-transparent text-gray-300 border-0 outline-none font-medium text-sm cursor-pointer">
+                        <option value="es">ES</option>
+                        <option value="en">EN</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Mobile -->
+            <div class="flex md:hidden items-center gap-3">
+                <button id="theme-toggle" aria-label="Cambiar tema" class="w-8 h-8 rounded-full bg-gray-800 dark:bg-indigo-900 flex items-center justify-center text-gray-300">
+                    <i class="fas fa-moon text-sm"></i>
+                </button>
+                <select id="language-switcher" class="bg-transparent text-gray-300 border-0 outline-none text-sm cursor-pointer">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+                <button id="menu-btn" class="w-8 h-8 rounded-full bg-gray-800 dark:bg-indigo-900 flex items-center justify-center text-gray-300" aria-label="Menú">
+                    <i class="fas fa-bars text-sm"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-800 dark:border-indigo-900 px-6 py-3 bg-gray-900 dark:bg-indigo-950">
+            <a href="index.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm">Inicio</a>
+            <a href="paises.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.paises">Países</a>
+            <a href="comparar.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.comparar">Comparar</a>
+            <a href="mapa.html" class="block py-2 text-white font-semibold text-sm" data-translate="nav.mapa">Mapa</a>
+            <a href="juegos.html" class="block py-2 text-gray-300 hover:text-white font-medium text-sm" data-translate="nav.quiz">Quiz</a>
+        </div>
+    </nav>
+
+    <!-- Search sticky -->
+    <div class="sticky top-16 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-700 py-3 shadow-sm">
+        <div class="container mx-auto px-4 flex items-center gap-3">
+            <div class="relative flex-1 max-w-sm">
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-sm"></i>
+                <input type="text" id="map-search" list="map-search-datalist"
+                    class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white text-sm"
+                    placeholder="Buscar país...">
+                <datalist id="map-search-datalist"></datalist>
+            </div>
+            <!-- Leyenda -->
+            <div class="hidden md:flex items-center gap-3 text-xs font-semibold flex-wrap">
+                <span><span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-1"></span>Americas</span>
+                <span><span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-1"></span>Europe</span>
+                <span><span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-1"></span>Asia</span>
+                <span><span class="inline-block w-3 h-3 rounded-full bg-orange-500 mr-1"></span>Africa</span>
+                <span><span class="inline-block w-3 h-3 rounded-full bg-purple-500 mr-1"></span>Oceania</span>
+            </div>
+        </div>
+    </div>
+    <!-- Mapa -->
+    <div id="leaflet-map" style="height: calc(100vh - 128px); width: 100%;"></div>
+
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/ui/navbar.js"></script>
+    <script src="js/api/countries.js"></script>
+    <script src="js/pages/mapa.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</body>
+
+</html>

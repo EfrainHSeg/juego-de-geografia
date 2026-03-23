@@ -305,7 +305,12 @@ window.addEventListener('click', (e) => {
 });
 
 // --- INICIAMOS LA APLICACIÓN AL CARGAR LA PÁGINA ---
-document.addEventListener('DOMContentLoaded', () => {
-    obtenerPaises();
+document.addEventListener('DOMContentLoaded', async () => {
     buscadorInput.value = '';
+    await obtenerPaises();
+
+    // Abrir modal si viene desde el "País del día"
+    const params = new URLSearchParams(window.location.search);
+    const paisParam = params.get('pais');
+    if (paisParam) mostrarModal(paisParam);
 });
