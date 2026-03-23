@@ -13,6 +13,12 @@
     <script>tailwind.config = { darkMode: 'class' }</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="view-transition" content="same-origin">
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-300">
@@ -76,6 +82,22 @@
     <main class="flex-1 container mx-auto px-4 py-8">
         <div class="max-w-2xl mx-auto">
 
+        <!-- Dificultad -->
+        <div class="flex gap-2 mb-4" id="difficulty-selector">
+            <button class="diff-btn diff-btn-active" data-diff="easy">
+                <span class="font-bold text-sm block">Fácil</span>
+                <span class="text-xs text-gray-400">20s · 4 opciones</span>
+            </button>
+            <button class="diff-btn" data-diff="medium">
+                <span class="font-bold text-sm block">Medio</span>
+                <span class="text-xs text-gray-400">15s · 4 opciones</span>
+            </button>
+            <button class="diff-btn" data-diff="hard">
+                <span class="font-bold text-sm block">Difícil</span>
+                <span class="text-xs text-gray-400">8s · 6 opciones</span>
+            </button>
+        </div>
+
         <!-- Modo de juego: cards -->
         <div class="grid grid-cols-2 gap-4 mb-6">
             <button id="mode-flags-btn" class="quiz-mode-card quiz-mode-card-active">
@@ -124,6 +146,10 @@
                 <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6"></div>
 
                 <p id="feedback" role="alert" aria-live="polite" class="text-center text-lg font-semibold my-4 min-h-7"></p>
+                <div id="funfact-container" class="hidden bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-3 my-3">
+                    <p class="text-xs font-bold text-blue-600 dark:text-blue-400 mb-1">💡 ¿Sabías que...?</p>
+                    <p id="funfact-text" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                </div>
                 <button id="next-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 hidden" data-translate="quiz.next_btn">Siguiente Pregunta</button>
             </div>
 
@@ -139,6 +165,10 @@
                 <button id="restart-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300" data-translate="quiz.restart_btn">
                     <i class="fas fa-rotate-right mr-2"></i>Jugar de nuevo
                 </button>
+                <div id="highscores-section" class="mt-6 text-left">
+                    <h3 class="font-bold text-base mb-3 text-gray-700 dark:text-gray-300">🏅 Mejores puntuaciones</h3>
+                    <div id="highscores-list" class="space-y-2"></div>
+                </div>
             </div>
 
             <!-- Loader -->
@@ -175,6 +205,11 @@
     <script src="js/ui/navbar.js"></script>
     <script src="js/api/countries.js"></script>
     <script src="js/pages/juegos.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+        }
+    </script>
 
 </body>
 </html>

@@ -9,6 +9,8 @@ const questionText = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
 const feedbackElement = document.getElementById('feedback');
 const nextButton = document.getElementById('next-btn');
+const funfactContainer = document.getElementById('funfact-container');
+const funfactText = document.getElementById('funfact-text');
 
 const scoreValue = document.getElementById('score-value');
 const totalQuestionsElement = document.getElementById('total-questions');
@@ -24,6 +26,14 @@ const progressBar = document.getElementById('progress-bar');
 const timerDisplay = document.getElementById('timer-display');
 const streakValue = document.getElementById('streak-value');
 
+// --- DIFICULTAD ---
+const DIFFICULTIES = {
+    easy:   { time: 20, options: 4 },
+    medium: { time: 15, options: 4 },
+    hard:   { time: 8,  options: 6 }
+};
+let currentDifficulty = 'easy';
+
 // --- VARIABLES GLOBALES ---
 let allCountries = [];
 let quizCountries = [];
@@ -31,12 +41,11 @@ let currentQuestionIndex = 0;
 let score = 0;
 let streak = 0;
 const numQuestions = 10;
-const timerSeconds = 15;
 let currentCorrectAnswer = '';
 let quizMode = 'flags';
 let quizStarted = false;
 let timerInterval = null;
-let timeLeft = timerSeconds;
+let timeLeft = DIFFICULTIES[currentDifficulty].time;
 
 // --- DATOS ---
 async function fetchCountries() {
@@ -80,6 +89,7 @@ function showQuestion() {
     optionsContainer.innerHTML = '';
     feedbackElement.textContent = '';
     nextButton.classList.add('hidden');
+    funfactContainer.classList.add('hidden');
 
     // HUD
     questionCounter.textContent = `${translations[currentLang]["quiz.question_of"] || 'Pregunta'} ${currentQuestionIndex + 1} / ${numQuestions}`;
@@ -88,6 +98,7 @@ function showQuestion() {
 
     const currentCountry = quizCountries[currentQuestionIndex];
     let options = [];
+    const numIncorrect = DIFFICULTIES[currentDifficulty].options - 1;
 
     if (quizMode === 'flags') {
         flagImage.classList.remove('hidden');
@@ -97,7 +108,7 @@ function showQuestion() {
         const correctName = getCountryName(currentCountry);
         currentCorrectAnswer = correctName;
 
-        const incorrectNames = getRandomOptions(allCountries, correctName, 3, getCountryName);
+        const incorrectNames = getRandomOptions(allCountries, correctName, numIncorrect, getCountryName);
         options = shuffleArray([...incorrectNames, correctName]);
 
     } else {
@@ -107,7 +118,7 @@ function showQuestion() {
         const correctCapital = currentCountry.capital[0];
         currentCorrectAnswer = correctCapital;
 
-        const incorrectCapitals = getRandomOptions(allCountries, correctCapital, 3, c => c.capital[0]);
+        const incorrectCapitals = getRandomOptions(allCountries, correctCapital, numIncorrect, c => c.capital[0]);
         options = shuffleArray([...incorrectCapitals, correctCapital]);
     }
 
@@ -143,7 +154,7 @@ function getRandomOptions(pool, correctAnswer, count, getValue) {
 // --- TEMPORIZADOR ---
 function startTimer() {
     clearInterval(timerInterval);
-    timeLeft = timerSeconds;
+    timeLeft = DIFFICULTIES[currentDifficulty].time;
     timerDisplay.textContent = timeLeft;
     timerDisplay.className = 'text-xl font-bold text-blue-600 dark:text-blue-400 w-6 text-center';
 
@@ -176,6 +187,7 @@ function handleTimeout() {
 
     feedbackElement.textContent = translations[currentLang]["quiz.feedback_timeout"] || '⏱ Tiempo agotado';
     feedbackElement.className = 'text-center text-lg font-semibold my-4 text-yellow-500';
+    showFunFact(quizCountries[currentQuestionIndex]);
     nextButton.classList.remove('hidden');
 }
 
@@ -209,7 +221,52 @@ function handleAnswer(event) {
     }
 
     streakValue.textContent = streak;
+    showFunFact(quizCountries[currentQuestionIndex]);
     nextButton.classList.remove('hidden');
+}
+
+// --- DATO CURIOSO ---
+async function showFunFact(country) {
+    try {
+        const data = await getWikipediaSummary(country.name.common, currentLang);
+        if (!data || !data.extract) return;
+        const sentences = data.extract.split(/(?<=[.!?])\s+/).slice(0, 2).join(' ');
+        funfactText.textContent = sentences;
+        funfactContainer.classList.remove('hidden');
+    } catch (e) {
+        // silently fail
+    }
+}
+
+// --- HIGHSCORES ---
+function getHighscores() {
+    return JSON.parse(localStorage.getItem('quiz_highscores') || '[]');
+}
+
+function saveHighscore(score, total, mode, difficulty) {
+    const scores = getHighscores();
+    const name = prompt(currentLang === 'es' ? '¿Tu nombre para el ranking?' : 'Your name for the ranking?') || 'Anónimo';
+    scores.push({ name, score, total, mode, difficulty, date: new Date().toLocaleDateString() });
+    scores.sort((a, b) => b.score - a.score);
+    localStorage.setItem('quiz_highscores', JSON.stringify(scores.slice(0, 10)));
+    return scores;
+}
+
+function renderHighscores() {
+    const list = document.getElementById('highscores-list');
+    const scores = getHighscores();
+    if (!scores.length) {
+        list.innerHTML = `<p class="text-sm text-gray-400 text-center">Sin puntuaciones aún.</p>`;
+        return;
+    }
+    list.innerHTML = scores.slice(0, 5).map((s, i) => `
+        <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
+            <span class="text-lg font-extrabold w-6 text-center ${i === 0 ? 'text-yellow-500' : i === 1 ? 'text-gray-400' : i === 2 ? 'text-amber-600' : 'text-gray-400'}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</span>
+            <span class="flex-1 font-semibold text-sm truncate">${s.name}</span>
+            <span class="text-sm font-bold text-blue-600 dark:text-blue-400">${s.score}/${s.total}</span>
+            <span class="text-xs text-gray-400">${s.date}</span>
+        </div>
+    `).join('');
 }
 
 // --- RESULTADOS ---
@@ -238,6 +295,9 @@ function showResults() {
         resultEmoji.textContent = '💪';
         resultMessage.textContent = translations[currentLang]["quiz.result_bad"];
     }
+
+    saveHighscore(score, numQuestions, quizMode, currentDifficulty);
+    renderHighscores();
 }
 
 // --- UTILIDADES ---
@@ -262,5 +322,13 @@ nextButton.addEventListener('click', () => {
 restartButton.addEventListener('click', () => startQuiz(quizMode));
 modeFlagsBtn.addEventListener('click', () => startQuiz('flags'));
 modeCapitalsBtn.addEventListener('click', () => startQuiz('capitals'));
+
+document.querySelectorAll('.diff-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        currentDifficulty = btn.dataset.diff;
+        document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('diff-btn-active'));
+        btn.classList.add('diff-btn-active');
+    });
+});
 
 document.addEventListener('DOMContentLoaded', () => fetchCountries());

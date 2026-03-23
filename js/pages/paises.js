@@ -11,9 +11,23 @@ const cerrarModalBtn = document.getElementById('closeModalBtn');
 let todosLosPaises = [];
 let selectedRegion = 'all';
 
+// --- SKELETON LOADING ---
+function mostrarSkeleton() {
+    contenedorPaises.innerHTML = Array(18).fill(0).map(() => `
+        <div class="country-card-skeleton">
+            <div class="skeleton-flag"></div>
+            <div class="skeleton-info">
+                <div class="skeleton-line skeleton-line-lg"></div>
+                <div class="skeleton-line skeleton-line-sm"></div>
+            </div>
+        </div>
+    `).join('');
+}
+
 // --- FUNCIÓN PARA OBTENER DATOS ---
 async function obtenerPaises() {
     try {
+        mostrarSkeleton();
         todosLosPaises = await getCountriesForList();
         llenarFiltroRegiones(todosLosPaises);
         mostrarPaises(todosLosPaises);

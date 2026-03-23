@@ -1,0 +1,22 @@
+{
+    "name": "Explora el Mundo",
+    "short_name": "Explora",
+    "description": "Aprende sobre países, capitales y banderas con juegos interactivos.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#111827",
+    "theme_color": "#2563eb",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "https://flagcdn.com/w320/un.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://flagcdn.com/w640/un.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
